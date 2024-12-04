@@ -3,32 +3,7 @@ export const abi = [
 		"inputs": [
 			{
 				"internalType": "address",
-				"name": "weth_",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "locker_",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "uniswapV3Factory_",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "positionManager_",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "swapRouter_",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "protocol_",
+				"name": "_tickertool",
 				"type": "address"
 			}
 		],
@@ -36,89 +11,33 @@ export const abi = [
 		"type": "constructor"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "owner",
-				"type": "address"
-			}
-		],
-		"name": "OwnableInvalidOwner",
-		"type": "error"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "account",
-				"type": "address"
-			}
-		],
-		"name": "OwnableUnauthorizedAccount",
-		"type": "error"
-	},
-	{
 		"anonymous": false,
 		"inputs": [
 			{
 				"indexed": true,
 				"internalType": "address",
-				"name": "previousOwner",
-				"type": "address"
-			},
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "newOwner",
-				"type": "address"
-			}
-		],
-		"name": "OwnershipTransferred",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"internalType": "address",
-				"name": "tokenAddress",
+				"name": "token",
 				"type": "address"
 			},
 			{
 				"indexed": false,
 				"internalType": "uint256",
-				"name": "lpNftId",
+				"name": "tokenId",
 				"type": "uint256"
 			},
 			{
-				"indexed": false,
+				"indexed": true,
 				"internalType": "address",
 				"name": "deployer",
 				"type": "address"
-			},
-			{
-				"indexed": false,
-				"internalType": "address",
-				"name": "lockerAddress",
-				"type": "address"
 			}
 		],
-		"name": "TokenCreated",
+		"name": "TokenDeployed",
 		"type": "event"
 	},
 	{
-		"inputs": [],
-		"name": "PROTOCOL_CUT",
-		"outputs": [
-			{
-				"internalType": "uint8",
-				"name": "",
-				"type": "uint8"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
+		"stateMutability": "payable",
+		"type": "fallback"
 	},
 	{
 		"inputs": [
@@ -136,92 +55,11 @@ export const abi = [
 				"internalType": "uint256",
 				"name": "_supply",
 				"type": "uint256"
-			},
-			{
-				"internalType": "bytes32",
-				"name": "_salt",
-				"type": "bytes32"
 			}
 		],
-		"name": "deployToken",
-		"outputs": [
-			{
-				"internalType": "contract Token",
-				"name": "token",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "tokenId",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "deployer",
-				"type": "address"
-			},
-			{
-				"internalType": "string",
-				"name": "name",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "symbol",
-				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "supply",
-				"type": "uint256"
-			}
-		],
-		"name": "generateSalt",
-		"outputs": [
-			{
-				"internalType": "bytes32",
-				"name": "salt",
-				"type": "bytes32"
-			},
-			{
-				"internalType": "address",
-				"name": "token",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "token",
-				"type": "address"
-			}
-		],
-		"name": "initialSwapTokens",
+		"name": "deploy",
 		"outputs": [],
 		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "liquidityLocker",
-		"outputs": [
-			{
-				"internalType": "contract ILockerFactory",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -239,49 +77,10 @@ export const abi = [
 	},
 	{
 		"inputs": [],
-		"name": "positionManager",
+		"name": "tickertool",
 		"outputs": [
 			{
-				"internalType": "contract INonfungiblePositionManager",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "deployer",
-				"type": "address"
-			},
-			{
-				"internalType": "string",
-				"name": "name",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "symbol",
-				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "supply",
-				"type": "uint256"
-			},
-			{
-				"internalType": "bytes32",
-				"name": "salt",
-				"type": "bytes32"
-			}
-		],
-		"name": "predictToken",
-		"outputs": [
-			{
-				"internalType": "address",
+				"internalType": "contract ITickerTool",
 				"name": "",
 				"type": "address"
 			}
@@ -291,72 +90,7 @@ export const abi = [
 	},
 	{
 		"inputs": [],
-		"name": "protocol",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "renounceOwnership",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "swapRouter",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "newOwner",
-				"type": "address"
-			}
-		],
-		"name": "transferOwnership",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "uniswapV3Factory",
-		"outputs": [
-			{
-				"internalType": "contract IUniswapV3Factory",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "newLocker",
-				"type": "address"
-			}
-		],
-		"name": "updateLiquidityLocker",
+		"name": "withdraw",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -365,26 +99,17 @@ export const abi = [
 		"inputs": [
 			{
 				"internalType": "address",
-				"name": "newCollector",
+				"name": "_token",
 				"type": "address"
 			}
 		],
-		"name": "updateTaxCollector",
+		"name": "withdrawERC20",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "weth",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
+		"stateMutability": "payable",
+		"type": "receive"
 	}
 ] as const

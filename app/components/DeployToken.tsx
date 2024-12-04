@@ -6,7 +6,6 @@ import {
     BaseError,
     useAccount,
     useConnect,
-    useReadContract,
     useWaitForTransactionReceipt,
     useWriteContract,
 } from "wagmi";
@@ -18,7 +17,7 @@ import { abi } from "@/lib/contract";
 import { config } from "./WagmiProvider";
 import Loading from "./Loading";
 
-const TokenFactory = "0x9f8719E3C1852B3c6Be9a14F4B91a095382EcD9e";
+const TokenFactory = "0x963c81e052a2B0d1528f53bb85c552C2b44A59aB";
 
 export default function DeployToken() {
     const [isSDKLoaded, setIsSDKLoaded] = useState(false);
@@ -26,8 +25,6 @@ export default function DeployToken() {
     const [name, setName] = useState("");
     const [symbol, setSymbol] = useState("");
     const [supply, setSupply] = useState("");
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const [salt, setSalt] = useState<any | null>();
     const [buyAmount, setBuyAmount] = useState("");
 
     const { address, isConnected } = useAccount();
@@ -57,32 +54,6 @@ export default function DeployToken() {
             load();
         }
     }, [isSDKLoaded]);
-
-    // Generate salt dynamically when all inputs are filled
-    useEffect(() => {
-        const fetchSalt = () => {
-            if (address && name && symbol && supply) {
-                try {
-
-                    // eslint-disable-next-line react-hooks/rules-of-hooks
-                    const saltInfo = useReadContract({
-                        abi,
-                        address: TokenFactory,
-                        functionName: "generateSalt",
-                    })
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    setSalt(saltInfo.data?.[0] as any);
-
-                } catch (error) {
-                    console.error("Error fetching salt:", error);
-                }
-            } else {
-                setSalt(null);
-            }
-        };
-
-        fetchSalt();
-    }, [name, symbol, supply, address]);
 
     const linkToBaseScan = useCallback((hash?: string) => {
         if (hash) {
@@ -155,13 +126,12 @@ export default function DeployToken() {
                         writeContract({
                             abi,
                             address: TokenFactory,
-                            functionName: "deployToken",
+                            functionName: "deploy",
                             value: parsedBuyAmount,
                             args: [
                                 name,
                                 symbol,
-                                parsedSupply as bigint,
-                                salt
+                                parsedSupply as bigint
                             ],
                         }) : connect({ connector: config.connectors[0] })
                     }

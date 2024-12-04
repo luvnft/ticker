@@ -15,7 +15,6 @@ const DeployTokenForm: React.FC<DeployTokenFormProps> = ({ contractAddress, targ
   const [name, setName] = useState("");
   const [symbol, setSymbol] = useState("");
   const [supply, setSupply] = useState("");
-  const [salt, setSalt] = useState<string | null>(null);
   const [amount, setAmount] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -48,29 +47,6 @@ const DeployTokenForm: React.FC<DeployTokenFormProps> = ({ contractAddress, targ
       }
     };
   }, [targetChainId]);
-
-  // Generate salt dynamically when all inputs are filled
-  useEffect(() => {
-    const fetchSalt = async () => {
-      if (walletConnected && name && symbol && supply) {
-        try {
-          const provider = new ethers.BrowserProvider(window.ethereum);
-          const contract = new ethers.Contract(contractAddress, abi, provider);
-          const signer = await provider.getSigner();
-          const address = await signer.getAddress();
-
-          const saltInfo = await contract.generateSalt(address, name, symbol, ethers.parseUnits(supply, 18));
-          setSalt(saltInfo[0]);
-        } catch (error) {
-          console.error("Error fetching salt:", error);
-        }
-      } else {
-        setSalt(null);
-      }
-    };
-
-    fetchSalt();
-  }, [name, symbol, supply, walletConnected, contractAddress]);
 
   const connectWallet = async () => {
     if (typeof window.ethereum !== "undefined") {
@@ -129,7 +105,7 @@ const DeployTokenForm: React.FC<DeployTokenFormProps> = ({ contractAddress, targ
       const signer = provider.getSigner();
       const contract = new ethers.Contract(contractAddress, abi, await signer);
 
-      const tx = await contract.deployToken(name, symbol, ethers.parseUnits(supply, 18), salt, {
+      const tx = await contract.deploy(name, symbol, ethers.parseUnits(supply, 18), {
         value: ethers.parseEther(amount),
       });
       await tx.wait();
@@ -140,7 +116,6 @@ const DeployTokenForm: React.FC<DeployTokenFormProps> = ({ contractAddress, targ
       setName("");
       setSymbol("");
       setSupply("");
-      setSalt(null);
       setAmount("");
 
     } catch (error) {
@@ -201,15 +176,6 @@ const DeployTokenForm: React.FC<DeployTokenFormProps> = ({ contractAddress, targ
             placeholder="0.1 or 0 if without buy"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
-            className="w-full p-2 bg-gray-700 placeholder-opacity-25 rounded-md border border-gray-600 focus:outline-none"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium mb-1">Generated Salt</label>
-          <input
-            type="text"
-            value={salt || "Fill all fields to generate salt"}
-            disabled
             className="w-full p-2 bg-gray-700 placeholder-opacity-25 rounded-md border border-gray-600 focus:outline-none"
           />
         </div>
