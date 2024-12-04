@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { ethers } from "ethers";
-import { contractAbi } from "../constant/contract";
+import { abi } from "../../lib/contract";
 
 interface DeployTokenFormProps {
   contractAddress: string;
@@ -55,7 +55,7 @@ const DeployTokenForm: React.FC<DeployTokenFormProps> = ({ contractAddress, targ
       if (walletConnected && name && symbol && supply) {
         try {
           const provider = new ethers.BrowserProvider(window.ethereum);
-          const contract = new ethers.Contract(contractAddress, contractAbi, provider);
+          const contract = new ethers.Contract(contractAddress, abi, provider);
           const signer = await provider.getSigner();
           const address = await signer.getAddress();
 
@@ -127,7 +127,7 @@ const DeployTokenForm: React.FC<DeployTokenFormProps> = ({ contractAddress, targ
       setLoading(true);
       const provider = new ethers.BrowserProvider(window.ethereum);
       const signer = provider.getSigner();
-      const contract = new ethers.Contract(contractAddress, contractAbi, await signer);
+      const contract = new ethers.Contract(contractAddress, abi, await signer);
 
       const tx = await contract.deployToken(name, symbol, ethers.parseUnits(supply, 18), salt, {
         value: ethers.parseEther(amount),
@@ -216,16 +216,22 @@ const DeployTokenForm: React.FC<DeployTokenFormProps> = ({ contractAddress, targ
         {!walletConnected ? (
           <button
             onClick={connectWallet}
-            className="w-full py-2 px-4 bg-blue-700 rounded-md text-white font-semibold hover:bg-blue-600"
+            className={`w-full py-2 px-4 bg-blue-600 rounded-md text-white font-semibold ${
+              loading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-700"
+            }`}
+            disabled={loading}
           >
-            Connect Wallet
+            {loading ? "Connecting..." : "Connect Wallet"}
           </button>
         ) : !correctNetwork ? (
           <button
             onClick={switchToTargetNetwork}
-            className="w-full py-2 px-4 bg-blue-700 rounded-md text-white font-semibold hover:bg-blue-600"
+            className={`w-full py-2 px-4 bg-blue-600 rounded-md text-white font-semibold ${
+              loading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-700"
+            }`}
+            disabled={loading}
           >
-            Switch to Base
+            {loading ? "Switching..." : "Switch to Base"}
           </button>
         ) : (
           <button

@@ -1,4 +1,4 @@
-export const contractAbi = [
+export const abi = [
 	{
 		"inputs": [
 			{
@@ -387,4 +387,4 @@ export const contractAbi = [
 		"stateMutability": "view",
 		"type": "function"
 	}
-]
+] as const
