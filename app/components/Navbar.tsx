@@ -1,15 +1,12 @@
 "use client";
 
-import { useAccount, useConnect, useDisconnect } from "wagmi";
+import { useAccount } from "wagmi";
 import { Button } from "./Button";
-import { config } from "./WagmiProvider";
 import Image from "next/image";
 import { truncateAddress } from "@/lib/truncateAddress";
 
 const Navbar = () => {
     const { address, isConnected } = useAccount()
-    const { disconnect } = useDisconnect();
-    const { connect } = useConnect();
     return (
         <header className="flex flex-row justify-between items-center p-4">
             <div className="items-center">
@@ -17,12 +14,9 @@ const Navbar = () => {
             </div>
             <div className="items-center -mt-5">
                 <Button
-                    disabled={!isConnected}
-                    onClick={() => isConnected
-                        ? disconnect() :
-                        connect({ connector: config.connectors[0] })}
+                    disabled
                 >
-                    {isConnected ? truncateAddress(address as string) : "Connect Wallet"}
+                    {isConnected ? truncateAddress(address as string) : "Open in Warpcast"}
                 </Button>
             </div>
         </header>
