@@ -19,9 +19,9 @@ const appUrl = "https://tickertool.xyz";
 
 const frame = {
   version: "next",
-  imageUrl: `${appUrl}/openGraphImage`,
+  imageUrl: `${appUrl}/og-image.png`,
   button: {
-    title: "Launch",
+    title: "Deploy Token",
     action: {
       type: "launch_frame",
       name: "Ticker Tool",

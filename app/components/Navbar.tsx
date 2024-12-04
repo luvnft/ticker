@@ -6,14 +6,11 @@ import { useAccount } from "wagmi";
 const Navbar = () => {
     const { address } = useAccount()
     return (
-        <div className="flex justify-between h-20 items-center p-4">
-            <h1 className="text-2xl font-bold">
-                #TickerTool
-            </h1>
+        <div className="py-5 text-center">
             {address && (
-                <h1 className="text-xl font-bold">
+                <span className="text-2xl font-bold">
                     {truncateAddress(address)}
-                </h1>
+                </span>
             )}
         </div>
     );
