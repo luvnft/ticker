@@ -4,9 +4,10 @@ import { useAccount, useConnect, useDisconnect } from "wagmi";
 import { Button } from "./Button";
 import { config } from "./WagmiProvider";
 import Image from "next/image";
+import { truncateAddress } from "@/lib/truncateAddress";
 
 const Navbar = () => {
-    const { isConnected } = useAccount()
+    const { address, isConnected } = useAccount()
     const { disconnect } = useDisconnect();
     const { connect } = useConnect();
     return (
@@ -16,11 +17,12 @@ const Navbar = () => {
             </div>
             <div className="items-center -mt-5">
                 <Button
+                    disabled={!isConnected}
                     onClick={() => isConnected
                         ? disconnect() :
                         connect({ connector: config.connectors[0] })}
                 >
-                    {isConnected ? "Disconnect" : "Connect Wallet"}
+                    {isConnected ? truncateAddress(address as string) : "Connect Wallet"}
                 </Button>
             </div>
         </header>
