@@ -10,7 +10,7 @@ import {
     useWaitForTransactionReceipt,
     useWriteContract,
 } from "wagmi";
-import { parseUnits, Address } from "viem";
+import { parseUnits } from "viem";
 
 import { Button } from "./Button";
 import { truncateAddress } from "@/lib/truncateAddress";
@@ -26,7 +26,8 @@ export default function DeployToken() {
     const [name, setName] = useState("");
     const [symbol, setSymbol] = useState("");
     const [supply, setSupply] = useState("");
-    const [salt, setSalt] = useState("");
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const [salt, setSalt] = useState<any | null>();
     const [buyAmount, setBuyAmount] = useState("");
 
     const { address, isConnected } = useAccount();
@@ -69,13 +70,14 @@ export default function DeployToken() {
                         address: TokenFactory,
                         functionName: "generateSalt",
                     })
-                    setSalt(saltInfo.data?.[0] as string);
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    setSalt(saltInfo.data?.[0] as any);
 
                 } catch (error) {
                     console.error("Error fetching salt:", error);
                 }
             } else {
-                setSalt("");
+                setSalt(null);
             }
         };
 
@@ -159,7 +161,7 @@ export default function DeployToken() {
                                 name,
                                 symbol,
                                 parsedSupply as bigint,
-                                salt as Address
+                                salt
                             ],
                         }) : connect({ connector: config.connectors[0] })
                     }
