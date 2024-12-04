@@ -1,18 +1,29 @@
 "use client";
 
-import { truncateAddress } from "@/lib/truncateAddress";
-import { useAccount } from "wagmi";
+import { useAccount, useConnect, useDisconnect } from "wagmi";
+import { Button } from "./Button";
+import { config } from "./WagmiProvider";
+import Image from "next/image";
 
 const Navbar = () => {
-    const { address } = useAccount()
+    const { isConnected } = useAccount()
+    const { disconnect } = useDisconnect();
+    const { connect } = useConnect();
     return (
-        <div className="py-5 text-center">
-            {address && (
-                <span className="text-2xl font-bold">
-                    {truncateAddress(address)}
-                </span>
-            )}
-        </div>
+        <header className="flex flex-row justify-between items-center p-4">
+            <div className="items-center">
+                <Image src={"/splash.png"} priority width={60} height={60} alt="Ticker Tool" />
+            </div>
+            <div className="items-center -mt-5">
+                <Button
+                    onClick={() => isConnected
+                        ? disconnect() :
+                        connect({ connector: config.connectors[0] })}
+                >
+                    {isConnected ? "Disconnect" : "Connect Wallet"}
+                </Button>
+            </div>
+        </header>
     );
 };
 

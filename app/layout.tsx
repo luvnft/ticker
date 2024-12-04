@@ -77,10 +77,7 @@ export default function RootLayout({
       >
 
         <Provider>
-
-          <header>
-            <Navbar />
-          </header>
+          <Navbar />
           <main>{children}</main>
           <footer className="text-center pt-10">
             <p>
@@ -88,9 +85,8 @@ export default function RootLayout({
               <span className="font-semibold"><a target="_blank" href="https://warpcast.com/joebaeda" className="text-blue-600">Joebada</a></span>
             </p>
           </footer>
-
         </Provider>
-        
+
       </body>
     </html>
   );

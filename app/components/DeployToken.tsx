@@ -5,7 +5,6 @@ import sdk from "@farcaster/frame-sdk";
 import {
     BaseError,
     useAccount,
-    useConnect,
     useWaitForTransactionReceipt,
     useWriteContract,
 } from "wagmi";
@@ -13,7 +12,6 @@ import { parseUnits } from "viem";
 
 import { Button } from "./Button";
 import { abi } from "@/lib/contract";
-import { config } from "./WagmiProvider";
 import Loading from "./Loading";
 
 const TokenFactory = "0x963c81e052a2B0d1528f53bb85c552C2b44A59aB";
@@ -27,7 +25,6 @@ export default function DeployToken() {
     const [buyAmount, setBuyAmount] = useState("");
 
     const { isConnected } = useAccount();
-    const { connect } = useConnect();
 
     const parsedSupply = supply
         ? parseUnits(supply, 18)
@@ -74,88 +71,89 @@ export default function DeployToken() {
     }
 
     return (
-            <div className="bg-[#282828] p-4 rounded-lg shadow-md">
-                <div className="mb-2">
-                    <label className="block text-sm font-medium mb-1">Token Name</label>
-                    <input
-                        type="text"
-                        placeholder="Snake DOG Coin"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        required
-                        className="w-full p-2 bg-[#1f1f1f] placeholder:text-[#282828] placeholder-opacity-25 rounded-md border-none focus:outline-none"
-                    />
-                </div>
-                <div className="mb-2">
-                    <label className="block text-sm font-medium mb-1">Token Symbol</label>
-                    <input
-                        type="text"
-                        placeholder="SDC"
-                        value={symbol}
-                        onChange={(e) => setSymbol(e.target.value)}
-                        required
-                        className="w-full p-2 bg-[#1f1f1f] placeholder:text-[#282828] placeholder-opacity-25 rounded-md border-none focus:outline-none"
-                    />
-                </div>
-                <div className="mb-2">
-                    <label className="block text-sm font-medium mb-1">Max Supply</label>
-                    <input
-                        type="numeric"
-                        placeholder="420690000000"
-                        value={supply}
-                        onChange={(e) => setSupply(e.target.value)}
-                        required
-                        className="w-full p-2 bg-[#1f1f1f] placeholder:text-[#282828] placeholder-opacity-25 rounded-md border-none focus:outline-none"
-                    />
-                </div>
-                <div className="mb-2">
-                    <label className="block text-sm font-medium mb-1">Buy (Optional)</label>
-                    <input
-                        type="text"
-                        placeholder="0.1 or 0 if without buy"
-                        value={buyAmount}
-                        onChange={(e) => setBuyAmount(e.target.value)}
-                        className="w-full p-2 bg-[#1f1f1f] placeholder:text-[#282828] placeholder-opacity-25 rounded-md border-none focus:outline-none"
-                    />
-                </div>
-                {/* Button Deploy Token */}
-                <Button
-                    disabled={!isConnected || isPending}
-                    onClick={() => isConnected ?
-                        writeContract({
-                            abi,
-                            address: TokenFactory,
-                            functionName: "deploy",
-                            value: parsedBuyAmount,
-                            args: [
-                                name,
-                                symbol,
-                                parsedSupply as bigint
-                            ],
-                        }) : connect({ connector: config.connectors[0] })
-                    }
-                >
-                    {!isConnected
-                        ? "Connect Wallet"
-                        : isPending
-                            ? "Confirming..."
-                            : isConfirming
-                                ? "Waiting for confirmation..."
-                                : "Deploy Token"}
-                </Button>
-                {isConfirmed && (
-                    <div
-                        className="text-green-500 text-center mt-4"
+        <div className="bg-[#282828] p-4 rounded-lg shadow-md">
+            <div className="mb-2">
+                <label className="block text-xs font-medium mb-1 pl-2">Token Name</label>
+                <input
+                    type="text"
+                    placeholder="Snake DOG Coin"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                    className="w-full p-2 bg-[#1f1f1f] placeholder:text-[#282828] placeholder-opacity-25 rounded-md border-none focus:outline-none"
+                />
+            </div>
+            <div className="mb-2">
+                <label className="block text-xs font-medium mb-1 pl-2">Token Symbol</label>
+                <input
+                    type="text"
+                    placeholder="SDC"
+                    value={symbol}
+                    onChange={(e) => setSymbol(e.target.value)}
+                    required
+                    className="w-full p-2 bg-[#1f1f1f] placeholder:text-[#282828] placeholder-opacity-25 rounded-md border-none focus:outline-none"
+                />
+            </div>
+            <div className="mb-2">
+                <label className="block text-xs font-medium mb-1 pl-2">Max Supply</label>
+                <input
+                    type="text"
+                    placeholder="420690000000"
+                    value={supply}
+                    onChange={(e) => setSupply(e.target.value)}
+                    required
+                    className="w-full p-2 bg-[#1f1f1f] placeholder:text-[#282828] placeholder-opacity-25 rounded-md border-none focus:outline-none"
+                />
+            </div>
+            <div className="mb-2">
+                <label className="block text-xs font-medium mb-1 pl-2">Buy (Optional)</label>
+                <input
+                    type="text"
+                    placeholder="0.1 or 0 if without buy"
+                    value={buyAmount}
+                    onChange={(e) => setBuyAmount(e.target.value)}
+                    className="w-full p-2 bg-[#1f1f1f] placeholder:text-[#282828] placeholder-opacity-25 rounded-md border-none focus:outline-none"
+                />
+            </div>
+            {/* Button Deploy Token */}
+            <Button
+                disabled={!isConnected || isPending}
+                onClick={() => isConnected &&
+                    writeContract({
+                        abi,
+                        address: TokenFactory,
+                        functionName: "deploy",
+                        value: parsedBuyAmount,
+                        args: [
+                            name,
+                            symbol,
+                            parsedSupply as bigint
+                        ],
+                    })
+                }
+            >
+                {isPending
+                    ? "Confirming..."
+                    : isConfirming
+                        ? "Waiting for confirmation..."
+                        : "Deploy Token"}
+            </Button>
+            {isConfirmed && (
+                <>
+                    <p className="my-2 text-xl text-green-600 font-extrabold">
+                        🎉 Transaction Confirmed!
+                    </p>
+                    <Button
                         onClick={() => linkToBaseScan(hash)}
                     >
-                        <p>🎉 Transaction Confirmed!</p>
-                        <p>Tap to View on Basescan</p>
-                    </div>
-                )}
-                {error && (
-                    <div>Error: {(error as BaseError).shortMessage || error.message}</div>
-                )}
+                        View on Basescan
+                    </Button>
+                </>
+            )}
+            {error && (
+                <div>Error: {(error as BaseError).shortMessage || error.message}</div>
+            )}
 
-            </div>
+        </div>
     );
 }
