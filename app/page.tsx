@@ -2,7 +2,7 @@ import DeployToken from "./components/DeployToken";
 
 export default function Home() {
   return (
-    <div className="mt-1">
+    <div className="p-4">
       <DeployToken />
     </div>
   );

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Provider from "./components/WagmiProvider";
+import Navbar from "./components/Navbar";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -74,15 +75,22 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} font-mono antialiased bg-[#1f1f1f] text-white`}
       >
+
         <Provider>
-          <main className="p-4">{children}</main>
+
+          <header>
+            <Navbar />
+          </header>
+          <main>{children}</main>
+          <footer className="text-center pt-10">
+            <p>
+              &copy; {new Date().getFullYear()} Built with ❤ By{" "}
+              <span className="font-semibold"><a target="_blank" href="https://warpcast.com/joebaeda" className="text-blue-600">Joebada</a></span>
+            </p>
+          </footer>
+
         </Provider>
-        <footer className="text-center pb-2">
-          <p>
-            &copy; {new Date().getFullYear()} Built with ❤ By{" "}
-            <span className="font-semibold"><a target="_blank" href="https://warpcast.com/joebaeda" className="text-blue-600">Joebada</a></span>
-          </p>
-        </footer>
+        
       </body>
     </html>
   );

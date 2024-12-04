@@ -12,7 +12,6 @@ import {
 import { parseUnits } from "viem";
 
 import { Button } from "./Button";
-import { truncateAddress } from "@/lib/truncateAddress";
 import { abi } from "@/lib/contract";
 import { config } from "./WagmiProvider";
 import Loading from "./Loading";
@@ -27,7 +26,7 @@ export default function DeployToken() {
     const [supply, setSupply] = useState("");
     const [buyAmount, setBuyAmount] = useState("");
 
-    const { address, isConnected } = useAccount();
+    const { isConnected } = useAccount();
     const { connect } = useConnect();
 
     const parsedSupply = supply
@@ -55,6 +54,15 @@ export default function DeployToken() {
         }
     }, [isSDKLoaded]);
 
+    useEffect(() => {
+        if (isConfirmed) {
+            setName("")
+            setSymbol("")
+            setSupply("")
+            setBuyAmount("")
+        }
+    }, [isConfirmed])
+
     const linkToBaseScan = useCallback((hash?: string) => {
         if (hash) {
             sdk.actions.openUrl(`https://basescan.org/tx/${hash}`);
@@ -66,16 +74,7 @@ export default function DeployToken() {
     }
 
     return (
-        <div className="w-full py-4">
-            <div className="mb-4">
-                {address && (
-                    <div className="text-sm text-gray-500 text-right">
-                        {truncateAddress(address)}
-                    </div>
-                )}
-            </div>
-
-            <div className="bg-gray-800 p-4 rounded-lg shadow-md">
+            <div className="bg-[#282828] p-4 rounded-lg shadow-md">
                 <div className="mb-2">
                     <label className="block text-sm font-medium mb-1">Token Name</label>
                     <input
@@ -84,7 +83,7 @@ export default function DeployToken() {
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         required
-                        className="w-full p-2 bg-gray-700 placeholder-opacity-25 rounded-md border border-gray-600 focus:outline-none"
+                        className="w-full p-2 bg-[#1f1f1f] placeholder:text-[#282828] placeholder-opacity-25 rounded-md border-none focus:outline-none"
                     />
                 </div>
                 <div className="mb-2">
@@ -95,18 +94,18 @@ export default function DeployToken() {
                         value={symbol}
                         onChange={(e) => setSymbol(e.target.value)}
                         required
-                        className="w-full p-2 bg-gray-700 placeholder-opacity-25 rounded-md border border-gray-600 focus:outline-none"
+                        className="w-full p-2 bg-[#1f1f1f] placeholder:text-[#282828] placeholder-opacity-25 rounded-md border-none focus:outline-none"
                     />
                 </div>
                 <div className="mb-2">
                     <label className="block text-sm font-medium mb-1">Max Supply</label>
                     <input
-                        type="text"
+                        type="numeric"
                         placeholder="420690000000"
                         value={supply}
                         onChange={(e) => setSupply(e.target.value)}
                         required
-                        className="w-full p-2 bg-gray-700 placeholder-opacity-25 rounded-md border border-gray-600 focus:outline-none"
+                        className="w-full p-2 bg-[#1f1f1f] placeholder:text-[#282828] placeholder-opacity-25 rounded-md border-none focus:outline-none"
                     />
                 </div>
                 <div className="mb-2">
@@ -116,7 +115,7 @@ export default function DeployToken() {
                         placeholder="0.1 or 0 if without buy"
                         value={buyAmount}
                         onChange={(e) => setBuyAmount(e.target.value)}
-                        className="w-full p-2 bg-gray-700 placeholder-opacity-25 rounded-md border border-gray-600 focus:outline-none"
+                        className="w-full p-2 bg-[#1f1f1f] placeholder:text-[#282828] placeholder-opacity-25 rounded-md border-none focus:outline-none"
                     />
                 </div>
                 {/* Button Deploy Token */}
@@ -158,6 +157,5 @@ export default function DeployToken() {
                 )}
 
             </div>
-        </div>
     );
 }
