@@ -15,11 +15,11 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
-const appUrl = "https://tickertool.xyz";
+const appUrl = "https://www.tickertool.xyz";
 
 const frame = {
   version: "next",
-  imageUrl: `${appUrl}/og-image.png`,
+  imageUrl: `${appUrl}/og-image`,
   button: {
     title: "Deploy Token",
     action: {
@@ -41,10 +41,10 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       title: "Ticker Tool | Uniswap Liquidity Farm",
       description: "Create, launch and earn uniswap liquidity fee from your own memecoin with no cut by protocol",
-      url: "https://tickertool.xyz",
+      url: "https://www.tickertool.xyz",
       images: [
         {
-          url: "https://tickertool.xyz/og-image.png",
+          url: "https://www.tickertool.xyz/og-image.png",
           width: 1200,
           height: 600,
           alt: "Ticker Tool",
@@ -56,7 +56,7 @@ export async function generateMetadata(): Promise<Metadata> {
       card: 'summary_large_image',
       title: "Ticker Tool | Uniswap Liquidity Farm",
       description: "Create, launch and earn uniswap liquidity fee from your own memecoin with no cut by protocol",
-      images: ["https://tickertool.xyz/og-image.png"],
+      images: ["https://www.tickertool.xyz/og-image.png"],
     },
     icons: "/favicon.ico",
     other: {
