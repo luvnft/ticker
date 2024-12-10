@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Provider from "./components/WagmiProvider";
-import Navbar from "./components/Navbar";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -19,7 +18,7 @@ const appUrl = "https://www.tickertool.xyz";
 
 const frame = {
   version: "next",
-  imageUrl: `${appUrl}/og-image`,
+  imageUrl: `${appUrl}/og-image.png`,
   button: {
     title: "Deploy Token",
     action: {
@@ -73,18 +72,11 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} font-mono antialiased bg-[#1f1f1f] text-white`}
+        className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased bg-gradient-to-b from-slate-900 via-purple-900 to-slate-900 text-white`}
       >
 
         <Provider>
-          <Navbar />
           <main>{children}</main>
-          <footer className="text-center pt-10">
-            <p>
-              &copy; {new Date().getFullYear()} Built with ❤ By{" "}
-              <span className="font-semibold"><a target="_blank" href="https://warpcast.com/joebaeda" className="text-blue-600">Joebada</a></span>
-            </p>
-          </footer>
         </Provider>
 
       </body>

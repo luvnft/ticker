@@ -12,13 +12,10 @@ import { parseUnits } from "viem";
 
 import { Button } from "./Button";
 import { abi } from "@/lib/contract";
-import Loading from "./Loading";
 
 const TokenFactory = "0x963c81e052a2B0d1528f53bb85c552C2b44A59aB";
 
 export default function DeployToken() {
-    const [isSDKLoaded, setIsSDKLoaded] = useState(false);
-
     const [name, setName] = useState("");
     const [symbol, setSymbol] = useState("");
     const [supply, setSupply] = useState("");
@@ -42,16 +39,6 @@ export default function DeployToken() {
         })
 
     useEffect(() => {
-        const load = async () => {
-            sdk.actions.ready();
-        };
-        if (sdk && !isSDKLoaded) {
-            setIsSDKLoaded(true);
-            load();
-        }
-    }, [isSDKLoaded]);
-
-    useEffect(() => {
         if (isConfirmed) {
             setName("")
             setSymbol("")
@@ -65,10 +52,6 @@ export default function DeployToken() {
             sdk.actions.openUrl(`https://basescan.org/tx/${hash}`);
         }
     }, []);
-
-    if (!isSDKLoaded) {
-        return <Loading />;
-    }
 
     return (
         <div className="bg-[#282828] p-4 rounded-lg shadow-md">
