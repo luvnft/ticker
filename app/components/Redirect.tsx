@@ -57,7 +57,7 @@ export function Redirect() {
 
                 {/* Button */}
                 <div className="max-w-3xl mx-auto my-5">
-                    <a href="https://warpcast.com/~/compose?text=Create%20Meme%20Coin%20and%20get%20Reward!%20Frame%20by%20@hahz&embeds[]=https://tickertool.xyz" target="_blank">
+                    <a href="https://warpcast.com/~/compose?text=Create%20Meme%20Coin%20and%20get%20Reward!%20Frame%20by%20@hahz&embeds[]=https://ticker-delta.vercel.app/" target="_blank">
                         <button className="w-full bg-purple-600 p-3 rounded-2xl text-xl font-bold text-white hover:bg-purple-700">Open In Warpcast</button>
                     </a>
                 </div>

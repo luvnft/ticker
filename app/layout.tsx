@@ -14,7 +14,7 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
-const appUrl = "https://www.tickertool.xyz";
+const appUrl = "https://ticker-delta.vercel.app/";
 
 const frame = {
   version: "next",
@@ -40,10 +40,10 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       title: "Ticker Tool | Uniswap Liquidity Farm",
       description: "Create, launch and earn uniswap liquidity fee from your own memecoin with no cut by protocol",
-      url: "https://www.tickertool.xyz",
+      url: "https://ticker-delta.vercel.app/",
       images: [
         {
-          url: "https://www.tickertool.xyz/og-image.png",
+          url: "https://ticker-delta.vercel.app/og-image.png",
           width: 1200,
           height: 600,
           alt: "Ticker Tool",
@@ -55,7 +55,7 @@ export async function generateMetadata(): Promise<Metadata> {
       card: 'summary_large_image',
       title: "Ticker Tool | Uniswap Liquidity Farm",
       description: "Create, launch and earn uniswap liquidity fee from your own memecoin with no cut by protocol",
-      images: ["https://www.tickertool.xyz/og-image.png"],
+      images: ["https://ticker-delta.vercel.app/og-image.png"],
     },
     icons: "/favicon.ico",
     other: {
