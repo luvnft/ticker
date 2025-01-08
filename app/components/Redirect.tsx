@@ -21,7 +21,7 @@ export function Redirect() {
                     {/* QR Code Section */}
                     <div className="bg-white p-6 rounded-2xl shadow-2xl">
                         <QRCode
-                            value="https://warpcast.com/~/compose?text=Create%20Meme%20Coin%20and%20get%20Reward!%20Frame%20by%20@hahz&embeds[]=https://tickertool.xyz"
+                            value="https://warpcast.com/~/compose?text=Create%20a%20LUV%20NFT%20FUN%20Meme%20Coin%20and%20get%20rewarded!%20Frame%20by%20@hahz&embeds[]=https://tickertool.xyz"
                             className="w-full h-auto"
                             style={{ height: "auto", maxWidth: "100%", width: "100%" }}
                         />
