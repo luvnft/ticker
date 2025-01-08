@@ -21,7 +21,7 @@ export function Redirect() {
                     {/* QR Code Section */}
                     <div className="bg-white p-6 rounded-2xl shadow-2xl">
                         <QRCode
-                            value="https://warpcast.com/~/compose?text=Create%20Meme%20Coin%20and%20get%20Reward!%20Frame%20by%20@joebaeda&embeds[]=https://tickertool.xyz"
+                            value="https://warpcast.com/~/compose?text=Create%20Meme%20Coin%20and%20get%20Reward!%20Frame%20by%20@hahz&embeds[]=https://tickertool.xyz"
                             className="w-full h-auto"
                             style={{ height: "auto", maxWidth: "100%", width: "100%" }}
                         />
@@ -57,7 +57,7 @@ export function Redirect() {
 
                 {/* Button */}
                 <div className="max-w-3xl mx-auto my-5">
-                    <a href="https://warpcast.com/~/compose?text=Create%20Meme%20Coin%20and%20get%20Reward!%20Frame%20by%20@joebaeda&embeds[]=https://tickertool.xyz" target="_blank">
+                    <a href="https://warpcast.com/~/compose?text=Create%20Meme%20Coin%20and%20get%20Reward!%20Frame%20by%20@hahz&embeds[]=https://tickertool.xyz" target="_blank">
                         <button className="w-full bg-purple-600 p-3 rounded-2xl text-xl font-bold text-white hover:bg-purple-700">Open In Warpcast</button>
                     </a>
                 </div>
@@ -65,7 +65,7 @@ export function Redirect() {
                 {/* Footer */}
                 <div className="mt-12 text-center">
                     <p className="text-purple-300 text-sm">
-                        Having trouble? <a className="font-bold text-purple-600" href="https://warpcast.com/joebaeda" target="_blank">Contact</a> support for more information.
+                        Having trouble? <a className="font-bold text-purple-600" href="https://warpcast.com/hahz" target="_blank">Contact</a> support for more information.
                     </p>
                 </div>
             </div>
