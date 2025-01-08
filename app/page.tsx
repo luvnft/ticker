@@ -48,8 +48,8 @@ export default function Home() {
       <DeployToken />
       <footer className="text-center">
         <p>
-          &copy; {new Date().getFullYear()} Built with ❤ By{" "}
-          <span className="font-semibold"><a target="_blank" href="https://warpcast.com/joebaeda" className="text-blue-600">Joebada</a></span>
+          &copy; {new Date().getFullYear()} Manifested with ❤ By{" "}
+          <span className="font-semibold"><a target="_blank" href="https://warpcast.com/hahz" className="text-blue-600">Wizard of Hahz</a></span>
         </p>
       </footer>
     </div>
